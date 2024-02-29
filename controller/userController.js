@@ -11,7 +11,6 @@ const sendEmail = require("./emailController");
 const validateMongoDbId = require("../utils/validateMongodbId");
 const { generateToken } = require("../config/jwtToken");
 const { generateRefreshToken } = require("../config/refreshToken");
-const { log } = require("console");
 
 const createUser = asyncHandler(async (req, res) => {
     const { email, role } = req.body;

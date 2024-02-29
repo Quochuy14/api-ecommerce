@@ -10,11 +10,11 @@ const {
     updateCoupon,
 } = require("../controller/couponController");
 
+router.get("/", authMiddleware, isAdmin, getallCoupons);
+router.get("/:id", authMiddleware, getCoupon);
 router.post("/simul", authMiddleware, isAdmin, createCouponSimul);
 router.post("/", authMiddleware, isAdmin, createCoupon);
 router.put("/:id", authMiddleware, isAdmin, updateCoupon);
-router.get("/", authMiddleware, isAdmin, getallCoupons);
-router.get("/:id", authMiddleware, isAdmin, getCoupon);
 router.delete("/:id", authMiddleware, isAdmin, deleteCoupon);
 
 module.exports = router;

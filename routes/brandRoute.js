@@ -9,10 +9,10 @@ const {
     getallBrand,
 } = require("../controller/brandController");
 
-router.post("/", authMiddleware, createBrand);
-router.put("/:id", authMiddleware, updateBrand);
 router.get("/", authMiddleware, getallBrand);
 router.get("/:id", authMiddleware, getaBrand);
-router.delete("/:id", authMiddleware, deleteBrand);
+router.post("/", authMiddleware, isAdmin, createBrand);
+router.put("/:id", authMiddleware, isAdmin, updateBrand);
+router.delete("/:id", authMiddleware, isAdmin, deleteBrand);
 
 module.exports = router;

@@ -1,9 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const fs = require("fs");
-const cloudinaryUploadImg = require("../utils/cloudinary");
 const validateMongoDbId = require("../utils/validateMongodbId");
 const Blog = require("../models/blogModel");
 const User = require("../models/userModel");
+const { cloudinaryUploadImg, cloundinaryDeleteImg } = require("../utils/cloudinary");
 
 
 const createBlog = asyncHandler(async (req, res) => {
@@ -86,7 +86,7 @@ const likeBlog = asyncHandler(async (req, res) => {
             isDisliked: false
         }, { new: true });
         if (isLiked) {
-            res.json(blog)
+            res.json(blog);
         }
     }
     if (isLiked) {
@@ -94,14 +94,14 @@ const likeBlog = asyncHandler(async (req, res) => {
             $pull: { likes: loginUserId },
             isLiked: false
         }, { new: true });
-        res.json(blog)
+        res.json(blog);
     }
     else {
         const blog = await Blog.findByIdAndUpdate(blogId, {
             $push: { likes: loginUserId },
             isLiked: true
         }, { new: true });
-        res.json(blog)
+        res.json(blog);
     }
 });
 
@@ -124,7 +124,7 @@ const dislikeBlog = asyncHandler(async (req, res) => {
             isLiked: false
         }, { new: true });
         if (isDisliked) {
-            res.json(blog)
+            res.json(blog);
         }
     }
     if (isDisliked) {
@@ -132,14 +132,14 @@ const dislikeBlog = asyncHandler(async (req, res) => {
             $pull: { dislikes: loginUserId },
             isDisliked: false
         }, { new: true });
-        res.json(blog)
+        res.json(blog);
     }
     else {
         const blog = await Blog.findByIdAndUpdate(blogId, {
             $push: { dislikes: loginUserId },
             isDisliked: true
         }, { new: true });
-        res.json(blog)
+        res.json(blog);
     }
 
 });
@@ -149,20 +149,20 @@ const uploadImages = asyncHandler(async (req, res) => {
     validateMongoDbId(id);
     try {
         const uploader = path => cloudinaryUploadImg(path, "images");
-        const urls = []
+        const urls = [];
         const files = req.files;
         for (const file of files) {
             const { path } = file;
             const newPath = await uploader(path);
             urls.push(newPath);
-            fs.unlinkSync(path)
+            fs.unlinkSync(path);
         };
         const findBlog = await Blog.findByIdAndUpdate(id, {
-            images: urls.map(file => { return file }),
+            images: urls.map(file => { return file; }),
         }, {
             new: true
-        })
-        res.json(findBlog)
+        });
+        res.json(findBlog);
     } catch (error) {
         ;
         throw new Error(error);
@@ -178,4 +178,4 @@ module.exports = {
     likeBlog,
     dislikeBlog,
     uploadImages
-}
+};

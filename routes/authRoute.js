@@ -47,8 +47,8 @@ router.get("/cart/get-order", authMiddleware, getOrder);
 //Admin
 router.delete("/delete/:id", authMiddleware, isAdmin, deleteaUser);
 router.put("/block-user/:id", authMiddleware, isAdmin, handleBlocked);
-router.get("/:id", authMiddleware, isAdmin, getaUser);
 router.get("/all-users", authMiddleware, isAdmin, getallUser);
+router.get("/:id", authMiddleware, isAdmin, getaUser);
 router.put("/unblock-user/:id", authMiddleware, isAdmin, handleBlocked);
 router.get("/all-order", authMiddleware, isAdmin, getallOrder);
 router.put("/update-order/:id", authMiddleware, isAdmin, updateOrderStatus);
